@@ -193,7 +193,7 @@ if __name__ == '__main__':
 
     print("Start No :: " + str(last_no))
 
-    for i in tqdm(range(0, 1), position=0, leave=True):
+    for i in tqdm(range(0, 50000), position=0, leave=True):
         try:
             last_no += 1
             json_data = get_dict_from_opendict(last_no)
