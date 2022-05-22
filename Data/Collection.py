@@ -26,7 +26,18 @@ def get_dict_from_opendict(key_no):
     return json_data
 
 
-def refine_label(word):
+def make_main_title(word):
+    """
+    main_title 생성
+    :param word:
+    :return:
+    """
+    __word = word.replace('-', '')
+    __word = __word.replace('^', ' ')
+    return __word
+
+
+def refine_labels(word):
     """
     - : 최소 분할 단위
     ^ : 띄어쓰는 것이 원칙이나 붙여 쓸 수 있다는 표시
@@ -51,12 +62,13 @@ def make_data(json_data):
     identifier = original_url[original_url.rfind('=') + 1:]  # 내부 식별 번호
     wordInfo = json_data['channel']['item']['wordInfo']  # 단어에 대한 정보 컨테이너
     word = wordInfo['word']  # 단어
+    main_title = make_main_title(word)  # 메인 타이틀
     word_unit = wordInfo['word_unit']  # 구성 단위
     word_type = wordInfo['word_type']  # 고유어 구분
     original_language_info = wordInfo['original_language_info'] \
         if 'original_language_info' in wordInfo.keys() else ''  # 원어
 
-    refined_word = refine_label(word)  # 단어 표기를 정제
+    refined_word = refine_labels(word)  # 단어 표기를 정제
 
     senseInfo = json_data['channel']['item']['senseInfo']  # 의미정보 컨테이너
     definition = senseInfo['definition']  # 단어 뜻
@@ -68,7 +80,7 @@ def make_data(json_data):
         if 'translation_info' in senseInfo.keys() else ''  # 대역어 컨테이너
     main_domain = ",".join(senseInfo['cat_info'] if 'cat_info' in senseInfo.keys() else '')  # 전문 분야
     proverbInfo = senseInfo['proverb_info'] if 'proverb_info' in senseInfo.keys() else ''  # 관용구 / 속담 컨테이너
-    title = word + str(sense_no)  # 단어와 어깨번호로 타이틀 생성
+    unique_title = word + str(sense_no)  # 단어와 어깨번호로 타이틀 생성
 
     original_word = ''  # 원어 단어
     origin_language_type_list = []
@@ -86,7 +98,7 @@ def make_data(json_data):
 
     original_word_type = origin_language_type_list[0] if len(origin_language_type_list) == 1 else ''  # 원어 단어 타입
 
-    __result = [identifier, word, title, "|".join(refined_word), word_unit, word_type, pos, sense_no, category,
+    __result = [identifier, main_title, unique_title, "|".join(refined_word), word_unit, word_type, pos, sense_no, category,
                 definition, main_domain, original_url, translation, translation_language_type,
                 original_word, original_word_type]
 
@@ -167,7 +179,7 @@ if __name__ == '__main__':
     if not os.path.isfile(seed_file_name):
         isFirst = True
 
-    df_index = ['identifier', 'word', 'main_title', 'label', 'word_unit', 'word_type', 'pos', 'sense_no', 'category',
+    df_index = ['identifier', 'word', 'unique_title', 'label', 'word_unit', 'word_type', 'pos', 'sense_no', 'category',
                 'definition', 'main_domain', 'original_url', 'translation', 'translation_language_type',
                 'original_word',
                 'original_word_type']
@@ -181,7 +193,7 @@ if __name__ == '__main__':
 
     print("Start No :: " + str(last_no))
 
-    for i in tqdm(range(0, 10), position=0, leave=True):
+    for i in tqdm(range(0, 1), position=0, leave=True):
         try:
             last_no += 1
             json_data = get_dict_from_opendict(last_no)
