@@ -139,6 +139,7 @@ def check_point():
     현재 결과를 저장한다.
     :return:
     """
+    global df_word
     global df_rel
     global isFirst
     check_last_no()
@@ -150,6 +151,7 @@ def check_point():
 
     df_rel.to_csv(rel_file_name, mode='a', header=False)
     df_rel = pd.DataFrame()
+    df_word = pd.DataFrame()
 
 
 def check_api_key(q_no):
