@@ -151,7 +151,7 @@ def check_point():
 
     df_rel.to_csv(rel_file_name, mode='a', header=False)
     df_rel = pd.DataFrame()
-    df_word = pd.DataFrame()
+    df_word = pd.DataFrame(columns=df_index)
 
 
 def check_api_key(q_no):
@@ -195,7 +195,7 @@ if __name__ == '__main__':
 
     print("Start No :: " + str(last_no))
 
-    for i in tqdm(range(0, 50000), position=0, leave=True):
+    for i in tqdm(range(0, 49000), position=0, leave=True):
         try:
             last_no += 1
             json_data = get_dict_from_opendict(last_no)
@@ -207,8 +207,9 @@ if __name__ == '__main__':
                 else:
                     df_word.loc[df_word[-1:].index[0] + 1] = result
 
-        except:
+        except Exception as e:
             last_no = last_no - 1
+            print(e)
             print("error occured..")
             print("last_no is " + str(last_no))
 
@@ -221,3 +222,5 @@ if __name__ == '__main__':
     #     sleep(sleeptime)
 
     check_point()
+
+    # check_last_no()
