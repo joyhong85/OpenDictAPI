@@ -1,0 +1,165 @@
+# baseURI: http://localhost/ontology/
+# imports: http://purl.org/dc/elements/1.1/
+# prefix: ont
+
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix ont: <http://localhost/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ont:
+  rdf:type owl:Ontology ;
+  dc:creator "joyhong" ;
+  dc:date "2022-06-23" ;
+  rdfs:comment "우리말샘 오픈 API에서 제공하는 데이터를 표현하기 위한 온톨로지 입니다." ;
+  rdfs:label "Ontology for OpenDict" ;
+  owl:imports dc: ;
+  owl:versionInfo "1.0" ;
+.
+ont:Category
+  rdf:type owl:Class ;
+  rdfs:label "카테고리" ;
+  rdfs:subClassOf owl:Thing ;
+.
+ont:Domain
+  rdf:type owl:Class ;
+  rdfs:label "분야" ;
+  rdfs:subClassOf owl:Thing ;
+.
+ont:Word
+  rdf:type owl:Class ;
+  rdfs:label "단어" ;
+  rdfs:subClassOf owl:Thing ;
+.
+ont:WordSense
+  rdf:type owl:Class ;
+  rdfs:label "단어 의미" ;
+  rdfs:subClassOf owl:Thing ;
+.
+ont:abbreviation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "준말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:antonym
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "반대말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:broader
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "상위어" ;
+  rdfs:range ont:WordSense ;
+.
+ont:category
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "범주" ;
+  rdfs:range ont:Category ;
+.
+ont:definition
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "정의" ;
+.
+ont:dialect
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "방언" ;
+  rdfs:range ont:WordSense ;
+.
+ont:hasSense
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:Word ;
+  rdfs:label "의미" ;
+  rdfs:range ont:WordSense ;
+.
+ont:honorific
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "높임말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:idiom
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "관용구" ;
+  rdfs:range ont:WordSense ;
+.
+ont:intimate
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "낮춤말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:mainTitle
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "메인타이틀" ;
+.
+ont:narrower
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "하위어" ;
+  rdfs:range ont:WordSense ;
+.
+ont:oldsaying
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "옛말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:opendictUrl
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "원문URL" ;
+.
+ont:originally
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "본말" ;
+  rdfs:range ont:WordSense ;
+.
+ont:pos
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "품사" ;
+.
+ont:proverb
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "속담" ;
+  rdfs:range ont:WordSense ;
+.
+ont:reference
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "참고어휘" ;
+  rdfs:range ont:WordSense ;
+.
+ont:senseNumber
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "의미 순번" ;
+.
+ont:similar
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "유사어" ;
+  rdfs:range ont:WordSense ;
+.
+ont:subject
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ont:WordSense ;
+  rdfs:label "전문분야" ;
+  rdfs:range ont:Domain ;
+.
+ont:wordType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "고유어 여부" ;
+.
+ont:wordUnit
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "구성 단위" ;
+.
