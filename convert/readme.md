@@ -1,6 +1,6 @@
 
 # File Download
-RDF로 생성한 파일은 아래의 링크에서 받을 수 있습니다.
+RDF로 생성한 파일은 아래의 링크에서 받을 수 있습니다.  
 https://joyhong.notion.site/OpenDict-Triple-4854049089eb4672be9144b5d438df71
 
 # 단어에 대한 의미 검색 
